@@ -1,0 +1,31 @@
+body {
+	background: purple;
+	text-align: center;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+
+#mainSection {
+	background: yellow;
+	width: 80%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 50px auto;
+	overflow: hidden;
+}
+h1 {
+	font-size: 100px;
+	margin-top: 30px;
+}
+
+#gameSection {
+	background: white;
+	width: 80%;
+	left: 0;
+	right: 0;
+	margin: 30px auto;
+}

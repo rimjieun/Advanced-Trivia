@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$("#start-button").on("click", function() {
+	
 	
 	var correct = 0;
 	var incorrect = 0;
@@ -38,28 +38,12 @@ $(document).ready(function() {
 	
 	//-------------------------------------------------------------------------------------------------
 
-	
+	// To start game, click the start button.
+	$("#start-button").on("click", function() {
+		loadQuestion();
+	});
 
-	function loadNext() {
-		questionAnswers.shift();
-		if (questionAnswers.length === 0) {
-			setTimeout(loadResults, 3000);
-		}
-		else {
-			setTimeout(loadQuestion, 1000);
-		}
-	}
-
-	function loadResults() {
-		$("#question-section").empty();
-		$("#question-section").append("<div id='result-msg'>All done! Here's how you did: </div>");
-		$("#result-msg").append("<ul id='results'></ul>");
-		$("#results").append("<li>Correct: " + correct + "</li>");
-		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
-		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
-		$("#game-section").append("<button id='start-button' type='button'>Start Over</button>");
-	}
-
+	// Loading one question at a time
 	function loadQuestion() {
 		var current = questionAnswers[0];
 		timer = setInterval(countDown, 1000);
@@ -72,6 +56,7 @@ $(document).ready(function() {
 			$("#choices").append("<li value=" + current.choices[i] + ">" + current.choices[i] + "</li>");
 		}
 
+		// When you click an answer choice, check answer.
 		$("li").on("click", function() {
 			clearInterval(timer);
 			checkAnswer(this, current.answer);
@@ -79,6 +64,7 @@ $(document).ready(function() {
 			loadNext();
 		})
 
+		// Count down function for timer
 		function countDown() {
 			count--;
 			$("#timer").html(count);
@@ -90,7 +76,8 @@ $(document).ready(function() {
 			}
 		}
 	}
-
+	
+	// Check answer function comparing selected choice and the actual answer
 	function checkAnswer(choice, answer) {
 		if ($(choice).attr("value") === answer) {
 				alert("correct");
@@ -102,6 +89,7 @@ $(document).ready(function() {
 		}
 	}
 
+	// Printing answer after user selects a choice
 	function loadAnswer(answer) {
 		$("#question-section").empty();
 		if (isCorrect === true) {
@@ -119,8 +107,32 @@ $(document).ready(function() {
 		
 	}
 
-	loadQuestion();
+	// Go to next question or final results page in 3 sec
+	function loadNext() {
+		questionAnswers.shift();
+		if (questionAnswers.length === 0) {
+			setTimeout(loadResults, 3000);
+		}
+		else {
+			setTimeout(loadQuestion, 1000);
+		}
+	}
 
-	});
+	// Print final results page
+	function loadResults() {
+		$("#question-section").empty();
+		$("#question-section").append("<div id='result-msg'>All done! Here's how you did: </div>");
+		$("#result-msg").append("<ul id='results'></ul>");
+		$("#results").append("<li>Correct: " + correct + "</li>");
+		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
+		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
+		$("#game-section").append("<button id='start-button' type='button'>Start Over</button>");
+	}
+
+	
+
+	
+
+	
 
 });

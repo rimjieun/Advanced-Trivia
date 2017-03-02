@@ -1,9 +1,10 @@
 $(document).ready(function() {
 
+	$("#start-button").on("click", function() {
+	
 	var correct = 0;
 	var incorrect = 0;
 	var unanswered = 0;
-	var selectedAnswers = [];
 	var timer;
 	var count;
 	var isCorrect; // boolean
@@ -37,9 +38,7 @@ $(document).ready(function() {
 	
 	//-------------------------------------------------------------------------------------------------
 
-	$("#start-button").on("click", function() {
-		loadQuestion();
-	})
+	
 
 	function loadNext() {
 		questionAnswers.shift();
@@ -58,6 +57,7 @@ $(document).ready(function() {
 		$("#results").append("<li>Correct: " + correct + "</li>");
 		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
 		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
+		$("#game-section").append("<button id='start-button' type='button'>Start Over</button>");
 	}
 
 	function loadQuestion() {
@@ -118,5 +118,9 @@ $(document).ready(function() {
 		}
 		
 	}
+
+	loadQuestion();
+
+	});
 
 });

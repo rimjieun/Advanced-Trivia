@@ -37,60 +37,38 @@ $(document).ready(function() {
 
 	$("#start-button").on("click", function() {
 		
-		console.log("hello");
 		loadQuestion();
-	})
+	});
+
+	$(document).on("click", "#start-over", function() {
+			startOver();
+		});
 
 
 	function startOver() {
 
 		console.log("startover");
 
-		// correct = 0;
-		// incorrect = 0;
-		// unanswered = 0;
-		// timer;
-		// count;
-		// isCorrect; // boolean
+		correct = 0;
+		incorrect = 0;
+		unanswered = 0;
+		timer;
+		count;
+		isCorrect; // boolean
 
-		// questionAnswers = [
-		// 	{question: "Q1", choices: ["A", "B", "bunny", "D"], answer: "bunny"},
-		// 	{question: "Q2", choices: ["A", "B", "cat", "D"], answer: "cat"},
-		// 	{question: "Q3", choices: ["A", "B", "hello", "D"], answer: "hello"},
-		// 	{question: "Q4", choices: ["A", "B", "C", "D"], answer: "C"},
-		// 	{question: "Q5", choices: ["A", "B", "C", "D"], answer: "C"},
-		// 	{question: "Q6", choices: ["A", "B", "C", "D"], answer: "C"}
-		// ];
+		questionAnswers = [
+			{question: "Q1", choices: ["A", "B", "bunny", "D"], answer: "bunny"},
+			{question: "Q2", choices: ["A", "B", "cat", "D"], answer: "cat"},
+			{question: "Q3", choices: ["A", "B", "hello", "D"], answer: "hello"},
+			{question: "Q4", choices: ["A", "B", "C", "D"], answer: "C"},
+			{question: "Q5", choices: ["A", "B", "C", "D"], answer: "C"},
+			{question: "Q6", choices: ["A", "B", "C", "D"], answer: "C"}
+		];
 
-
-		// message = {
-		// 	correct: function() {
-		// 		$("#question-section").append("Correct!");
-		// 		$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
-		// 	},
-		// 	incorrect: function(answer) {
-		// 		$("#question-section").append("Incorrect");
-		// 		$("#question-section").append("<div>The correct answer was: " + answer + "</div>");
-		// 		$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
-		// 	},
-		// 	outOfTime: function(answer) {
-		// 		$("#question-section").append("Out of time!");
-		// 		$("#question-section").append("<div>The correct answer was: " + answer + "</div>");
-		// 		$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
-		// 	}
-		// }
-
-
-		// loadQuestion();
-		
-
+		loadQuestion();
 	}
 
-	
-	
 	//-------------------------------------------------------------------------------------------------
-
-	
 
 	function loadNext() {
 		questionAnswers.shift();
@@ -110,16 +88,12 @@ $(document).ready(function() {
 		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
 		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
 		$("#game-section").append("<button id='start-over' type='button'>Start Over</button>");
-
-		$("#start-over").on("click", function() {
-			startOver();
-		})
 	}
 
 	function loadQuestion() {
 		var current = questionAnswers[0];
 		timer = setInterval(countDown, 1000);
-		count = 1;
+		count = 30;
 		$("#game-section").html("<div id='timer'>" + count + "</div>");
 		$("#game-section").append("<div id='question-section'></div>");
 		$("#question-section").append("<div id='question'>" + current.question + "</div>");
@@ -149,11 +123,9 @@ $(document).ready(function() {
 
 	function checkAnswer(choice, answer) {
 		if ($(choice).attr("value") === answer) {
-				alert("correct");
 				isCorrect = true;
 		}
 		else {
-			alert("incorrect");
 				isCorrect = false;
 		}
 	}
@@ -173,10 +145,6 @@ $(document).ready(function() {
 			message.incorrect(answer);
 		}
 		
-	}
-
-	function startOver() {
-
 	}
 
 });

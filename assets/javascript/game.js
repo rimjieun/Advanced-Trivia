@@ -3,7 +3,6 @@ $(document).ready(function() {
 	var correct = 0;
 	var incorrect = 0;
 	var unanswered = 0;
-	var selectedAnswers = [];
 	var timer;
 	var count;
 	var isCorrect; // boolean
@@ -34,12 +33,64 @@ $(document).ready(function() {
 			$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
 		}
 	}
+
+
+	$("#start-button").on("click", function() {
+		
+		console.log("hello");
+		loadQuestion();
+	})
+
+
+	function startOver() {
+
+		console.log("startover");
+
+		// correct = 0;
+		// incorrect = 0;
+		// unanswered = 0;
+		// timer;
+		// count;
+		// isCorrect; // boolean
+
+		// questionAnswers = [
+		// 	{question: "Q1", choices: ["A", "B", "bunny", "D"], answer: "bunny"},
+		// 	{question: "Q2", choices: ["A", "B", "cat", "D"], answer: "cat"},
+		// 	{question: "Q3", choices: ["A", "B", "hello", "D"], answer: "hello"},
+		// 	{question: "Q4", choices: ["A", "B", "C", "D"], answer: "C"},
+		// 	{question: "Q5", choices: ["A", "B", "C", "D"], answer: "C"},
+		// 	{question: "Q6", choices: ["A", "B", "C", "D"], answer: "C"}
+		// ];
+
+
+		// message = {
+		// 	correct: function() {
+		// 		$("#question-section").append("Correct!");
+		// 		$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
+		// 	},
+		// 	incorrect: function(answer) {
+		// 		$("#question-section").append("Incorrect");
+		// 		$("#question-section").append("<div>The correct answer was: " + answer + "</div>");
+		// 		$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
+		// 	},
+		// 	outOfTime: function(answer) {
+		// 		$("#question-section").append("Out of time!");
+		// 		$("#question-section").append("<div>The correct answer was: " + answer + "</div>");
+		// 		$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
+		// 	}
+		// }
+
+
+		// loadQuestion();
+		
+
+	}
+
+	
 	
 	//-------------------------------------------------------------------------------------------------
 
-	$("#start-button").on("click", function() {
-		loadQuestion();
-	})
+	
 
 	function loadNext() {
 		questionAnswers.shift();
@@ -58,6 +109,11 @@ $(document).ready(function() {
 		$("#results").append("<li>Correct: " + correct + "</li>");
 		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
 		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
+		$("#game-section").append("<button id='start-over' type='button'>Start Over</button>");
+
+		$("#start-over").on("click", function() {
+			startOver();
+		})
 	}
 
 	function loadQuestion() {
@@ -117,6 +173,10 @@ $(document).ready(function() {
 			message.incorrect(answer);
 		}
 		
+	}
+
+	function startOver() {
+
 	}
 
 });

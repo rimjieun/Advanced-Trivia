@@ -6,82 +6,117 @@ $(document).ready(function() {
 	var selectedAnswers = [];
 	var timer;
 	var count;
-	var correct; // boolean
+	var isCorrect; // boolean
 
 	var questionAnswers = [
-		{question: "Q1", choices: ["A", "B", "C", "D"], answer: "C"},
-		{question: "Q2", choices: ["A", "B", "C", "D"], answer: "C"},
-		{question: "Q3", choices: ["A", "B", "C", "D"], answer: "C"},
+		{question: "Q1", choices: ["A", "B", "bunny", "D"], answer: "bunny"},
+		{question: "Q2", choices: ["A", "B", "cat", "D"], answer: "cat"},
+		{question: "Q3", choices: ["A", "B", "hello", "D"], answer: "hello"},
 		{question: "Q4", choices: ["A", "B", "C", "D"], answer: "C"},
 		{question: "Q5", choices: ["A", "B", "C", "D"], answer: "C"},
 		{question: "Q6", choices: ["A", "B", "C", "D"], answer: "C"}
 	];
 
+
+	var message = {
+		correct: function() {
+			$("#question-section").append("Correct!");
+			$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
+		},
+		incorrect: function(answer) {
+			$("#question-section").append("Incorrect");
+			$("#question-section").append("<div>The correct answer was: " + answer + "</div>");
+			$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
+		},
+		outOfTime: function(answer) {
+			$("#question-section").append("Out of time!");
+			$("#question-section").append("<div>The correct answer was: " + answer + "</div>");
+			$("#question-section").append("<div><img src='assets/images/cat.jpg'></div>");
+		}
+	}
+	
+	//-------------------------------------------------------------------------------------------------
+
 	$("#start-button").on("click", function() {
 		loadQuestion();
 	})
 
-	function countDown() {
-		count--;
-		$("#timer").html(count);
-		if (count === 0) {
-			clearInterval(timer);
-			
-			loadQuestion();
-			unanswered++;
+	function loadNext() {
+		questionAnswers.shift();
+		if (questionAnswers.length === 0) {
+			setTimeout(loadResults, 3000);
 		}
+		else {
+			setTimeout(loadQuestion, 1000);
+		}
+	}
+
+	function loadResults() {
+		$("#question-section").empty();
+		$("#question-section").append("<div id='result-msg'>All done! Here's how you did: </div>");
+		$("#result-msg").append("<ul id='results'></ul>");
+		$("#results").append("<li>Correct: " + correct + "</li>");
+		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
+		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
 	}
 
 	function loadQuestion() {
+		var current = questionAnswers[0];
 		timer = setInterval(countDown, 1000);
-		count = 10;
+		count = 1;
 		$("#game-section").html("<div id='timer'>" + count + "</div>");
-		$("#game-section").append("<div id='question'>" + questionAnswers[0].question + "</div>");
+		$("#game-section").append("<div id='question-section'></div>");
+		$("#question-section").append("<div id='question'>" + current.question + "</div>");
 		$("#question").append("<ul id='choices'></ul>");
-		for (i = 0; i < questionAnswers[0].choices.length; i++) {
-			$("#choices").append("<li value=" + questionAnswers[0].choices[i] +" "+ "data-answer=" + questionAnswers[0].answer + ">" + questionAnswers[0].choices[i] + "</li>");
+		for (i = 0; i < current.choices.length; i++) {
+			$("#choices").append("<li value=" + current.choices[i] + ">" + current.choices[i] + "</li>");
 		}
-		questionAnswers.shift();
 
 		$("li").on("click", function() {
 			clearInterval(timer);
-			checkAnswer(this);
-			loadAnswer(this);
-			setTimeout(loadQuestion, 3000);
+			checkAnswer(this, current.answer);
+			loadAnswer(current.answer);
+			loadNext();
 		})
 
+		function countDown() {
+			count--;
+			$("#timer").html(count);
+			if (count === 0) {
+				isCorrect = false;
+				clearInterval(timer);
+				loadAnswer(current.answer);
+				loadNext();
+			}
+		}
 	}
 
-	function checkAnswer(choice) {
-		if ($(choice).attr("value") === $(choice).attr("data-answer")) {
+	function checkAnswer(choice, answer) {
+		if ($(choice).attr("value") === answer) {
 				alert("correct");
-				correct = true;
+				isCorrect = true;
 		}
 		else {
 			alert("incorrect");
-				correct = false;
+				isCorrect = false;
 		}
 	}
 
-	function loadAnswer(choice) {
-		$("#question, #choices").remove();
-		if (correct === true) {
-			$("#game-section").append("Correct!");
-			$("#game-section").append("<div><img src='assets/images/cat.jpg'></div>");
+	function loadAnswer(answer) {
+		$("#question-section").empty();
+		if (isCorrect === true) {
+			correct++;
+			message.correct();
 		}
-		else {
-			$("#game-section").append("Incorrect");
-			$("#game-section").append("<div>The correct answer was: " + $(choice).attr("data-answer") + "</div>");
-			$("#game-section").append("<div><img src='assets/images/cat.jpg'></div>");
-
+		if ((count === 0) && (isCorrect === false)) {
+			unanswered++;
+			message.outOfTime(answer);
 		}
+		if ((count > 0) && (isCorrect === false)) {
+			incorrect++;
+			message.incorrect(answer);
+		}
+		
 	}
 
-
-
-
-
-
-
-
-})
+});

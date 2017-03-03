@@ -36,64 +36,19 @@ $(document).ready(function() {
 
 
 	$("#start-button").on("click", function() {
-		
 		loadQuestion();
 	});
 
 	$(document).on("click", "#start-over", function() {
-			startOver();
-		});
-
-
-	function startOver() {
-
-		console.log("startover");
-
-		correct = 0;
-		incorrect = 0;
-		unanswered = 0;
-		timer;
-		count;
-		isCorrect; // boolean
-
-		questionAnswers = [
-			{question: "Q1", choices: ["A", "B", "bunny", "D"], answer: "bunny"},
-			{question: "Q2", choices: ["A", "B", "cat", "D"], answer: "cat"},
-			{question: "Q3", choices: ["A", "B", "hello", "D"], answer: "hello"},
-			{question: "Q4", choices: ["A", "B", "C", "D"], answer: "C"},
-			{question: "Q5", choices: ["A", "B", "C", "D"], answer: "C"},
-			{question: "Q6", choices: ["A", "B", "C", "D"], answer: "C"}
-		];
-
-		loadQuestion();
-	}
+		startOver();
+	});
 
 	//-------------------------------------------------------------------------------------------------
-
-	function loadNext() {
-		questionAnswers.shift();
-		if (questionAnswers.length === 0) {
-			setTimeout(loadResults, 3000);
-		}
-		else {
-			setTimeout(loadQuestion, 1000);
-		}
-	}
-
-	function loadResults() {
-		$("#question-section").empty();
-		$("#question-section").append("<div id='result-msg'>All done! Here's how you did: </div>");
-		$("#result-msg").append("<ul id='results'></ul>");
-		$("#results").append("<li>Correct: " + correct + "</li>");
-		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
-		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
-		$("#game-section").append("<button id='start-over' type='button'>Start Over</button>");
-	}
 
 	function loadQuestion() {
 		var current = questionAnswers[0];
 		timer = setInterval(countDown, 1000);
-		count = 30;
+		count = 5;
 		$("#game-section").html("<div id='timer'>" + count + "</div>");
 		$("#game-section").append("<div id='question-section'></div>");
 		$("#question-section").append("<div id='question'>" + current.question + "</div>");
@@ -107,7 +62,7 @@ $(document).ready(function() {
 			checkAnswer(this, current.answer);
 			loadAnswer(current.answer);
 			loadNext();
-		})
+		});
 
 		function countDown() {
 			count--;
@@ -144,7 +99,44 @@ $(document).ready(function() {
 			incorrect++;
 			message.incorrect(answer);
 		}
-		
+	}
+
+	function loadNext() {
+		questionAnswers.shift();
+		if (questionAnswers.length === 0) {
+			setTimeout(loadResults, 3000);
+		}
+		else {
+			setTimeout(loadQuestion, 1000);
+		}
+	}
+
+	function loadResults() {
+		$("#question-section").empty();
+		$("#question-section").append("<div id='result-msg'>All done! Here's how you did: </div>");
+		$("#result-msg").append("<ul id='results'></ul>");
+		$("#results").append("<li>Correct: " + correct + "</li>");
+		$("#results").append("<li>Incorrect: " + incorrect + "</li>");
+		$("#results").append("<li>Unanswered: " + unanswered + "</li>");
+		$("#game-section").append("<button id='start-over' type='button'>Start Over</button>");
+	}
+
+	function startOver() {
+
+		correct = 0;
+		incorrect = 0;
+		unanswered = 0;
+
+		questionAnswers = [
+			{question: "Q1", choices: ["A", "B", "bunny", "D"], answer: "bunny"},
+			{question: "Q2", choices: ["A", "B", "cat", "D"], answer: "cat"},
+			{question: "Q3", choices: ["A", "B", "hello", "D"], answer: "hello"},
+			{question: "Q4", choices: ["A", "B", "C", "D"], answer: "C"},
+			{question: "Q5", choices: ["A", "B", "C", "D"], answer: "C"},
+			{question: "Q6", choices: ["A", "B", "C", "D"], answer: "C"}
+		];
+
+		loadQuestion();
 	}
 
 });

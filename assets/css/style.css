@@ -1,31 +1,125 @@
 body {
-	background: purple;
+	background: url(../images/background2.jpg);
+	background-size: cover;
+	font-family: 'Libre Baskerville', serif;
+	font-size: 3vw;
 	text-align: center;
+	overflow: hidden;
 }
 
 * {
 	box-sizing: border-box;
 }
 
+p {
+	margin: 3vw auto;
+}
 
-#mainSection {
-	background: yellow;
+#main-section {
+	background: rgba(0, 0, 0, 0.7);
 	width: 80%;
+	height: 93%;
+	padding: 1vw;
+	margin: 30px auto;
+	border-radius: 25%;
 	position: absolute;
 	left: 0;
 	right: 0;
-	margin: 50px auto;
-	overflow: hidden;
-}
-h1 {
-	font-size: 100px;
-	margin-top: 30px;
 }
 
-#gameSection {
-	background: white;
+h1 {
+	font-size: 5vw;
+	background: -webkit-linear-gradient(#649173, #DBD5A4);
+}
+
+#game-section {
+	/*background: white;*/
 	width: 80%;
 	left: 0;
 	right: 0;
 	margin: 30px auto;
+}
+
+#question-section {
+	position: relative;
+}
+
+button,
+li {
+	height: 5vw;
+	background: -webkit-linear-gradient(#F1F2B5, #135058);
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+button {
+	width: 20vw;
+	margin-top: 2vw;
+	border: none;
+	font-family: 'Libre Baskerville', serif;
+	font-size: 2vw;
+}
+
+button:hover,
+li:hover {
+	background: -webkit-linear-gradient(#2c3e50, #3498db);
+}
+
+#timer {
+	color: #DE6262;
+}
+
+#question {
+	background: -webkit-linear-gradient(#C04848, #480048);
+	padding-bottom: 1vw;
+}
+
+ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+li {
+	margin: 2vw;
+	line-height: 70px;
+}
+
+li:first-child {
+	margin-top: 0;
+}
+
+.message,
+.result-msg {
+	background: -webkit-linear-gradient(#F09819, #EDDE5D);
+}
+
+div.message {
+	text-align: left;
+	position: absolute;
+	top: 3vw;
+	left: 32vw;
+}
+
+.result-msg {
+	font-size: 2vw;
+	margin: 1vw auto;
+}
+
+h1,
+#question,
+.message,
+.result-msg{
+	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+
+img {
+	width: 15vw;
+	height: auto;
+	border-radius: 50%;
+	float: left;
+	position: relative;
+	left: 13vw;
+	margin: 0;
 }

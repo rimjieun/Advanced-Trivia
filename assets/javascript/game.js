@@ -172,7 +172,7 @@ $(document).ready(function() {
 
 	function loadResults() {
 		$("#question-section").empty();
-		$("#question-section").append("<p id='results' class='result-msg'>All done! Here's how you did: </p>");
+		$("#question-section").append("<p id='results' class='result-msg'>YOUR RESULTS</p>");
 		$("#results").append("<p class='result-msg'>Correct: " + correct + "</p>");
 		$("#results").append("<p class='result-msg'>Incorrect: " + incorrect + "</p>");
 		$("#results").append("<p class='result-msg'>Unanswered: " + unanswered + "</p>");
